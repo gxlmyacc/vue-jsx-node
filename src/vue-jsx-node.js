@@ -1,4 +1,4 @@
-export default function (Vue) {
+module.exports = function (Vue) {
   function camelize(str) {
     return str.replace(/-(\w)/g, function (_, c) { return c ? c.toUpperCase() : ''; });
   }
@@ -129,4 +129,4 @@ export default function (Vue) {
       return mergeContext(node, context, { classes, styles });
     },
   };
-}
+};

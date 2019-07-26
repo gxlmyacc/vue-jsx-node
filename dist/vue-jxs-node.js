@@ -97,11 +97,7 @@ module.exports =
 "use strict";
 
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _default = {
+module.exports = {
   install: function install(Vue) {
     var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {
       componentName: ''
@@ -112,7 +108,6 @@ var _default = {
     Vue.component(options.componentName || VueJsxNode.name, VueJsxNode);
   }
 };
-exports.default = _default;
 
 /***/ }),
 
@@ -126,11 +121,6 @@ exports.default = _default;
 "use strict";
 
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = _default;
-
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
 
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
@@ -139,7 +129,7 @@ function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.
 
 function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
 
-function _default(Vue) {
+module.exports = function (Vue) {
   function camelize(str) {
     return str.replace(/-(\w)/g, function (_, c) {
       return c ? c.toUpperCase() : '';
@@ -286,7 +276,7 @@ function _default(Vue) {
       });
     }
   };
-}
+};
 
 /***/ })
 

@@ -38,6 +38,7 @@ module.exports = function (options) {
       filename: options.dev ? 'vue-jxs-node.js' : 'vue-jxs-node.min.js',
       publicPath: './',
       pathinfo: options.dev,
+      library: 'VueJsxNode'
     },
     devtool: 'nosources-source-map',
     module: {

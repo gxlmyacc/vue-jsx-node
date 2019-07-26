@@ -96,11 +96,7 @@
 "use strict";
 
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _default = {
+module.exports = {
   install: function install(Vue) {
     var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {
       componentName: ''
@@ -111,7 +107,6 @@ var _default = {
     Vue.component(options.componentName || VueJsxNode.name, VueJsxNode);
   }
 };
-exports.default = _default;
 
 /***/ }),
 

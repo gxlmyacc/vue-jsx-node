@@ -1,0 +1,56 @@
+{
+  "name": "vue-jsx-node",
+  "version": "1.0.0",
+  "description": "vue-jsx-node",
+  "keywords": [
+    "vue-jsx-node"
+  ],
+  "sideEffects": false,
+  "main": "dist/vue-jxs-node.min.js",
+  "engines": {
+    "node": "> 6.9.1"
+  },
+  "scripts": {
+    "build-dev": "cross-env NODE_ENV=development webpack --progresss  --config build/webpack-dev.config.js",
+    "build-prod": "cross-env NODE_ENV=production webpack --progresss  --config build/webpack-prod.config.js",
+    "build": "npm run build-dev && npm run build-prod"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gxlmyacc/vue-jsx-node.git"
+  },
+  "author": "gxlmyacc",
+  "dependencies": {
+    "vue": "^2.6.10"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.5.4",
+    "@babel/plugin-proposal-class-properties": "^7.5.0",
+    "@babel/plugin-proposal-json-strings": "^7.2.0",
+    "@babel/plugin-proposal-object-rest-spread": "^7.5.4",
+    "@babel/plugin-syntax-dynamic-import": "^7.2.0",
+    "@babel/plugin-syntax-import-meta": "^7.2.0",
+    "@babel/plugin-transform-arrow-functions": "^7.2.0",
+    "@babel/preset-env": "7.4.5",
+    "@vue/babel-plugin-transform-vue-jsx": "^1.0.0",
+    "babel-eslint": "^10.0.2",
+    "babel-loader": "^8.0.6",
+    "clean-webpack-plugin": "^1.0.1",
+    "cross-env": "^5.2.0",
+    "eslint": "^6.0.1",
+    "eslint-config-airbnb-base": "^13.2.0",
+    "eslint-import-resolver-webpack": "^0.11.1",
+    "eslint-loader": "^2.2.1",
+    "eslint-plugin-import": "^2.18.0",
+    "eslint-plugin-vue": "^5.2.3",
+    "file-loader": "^4.0.0",
+    "friendly-errors-webpack-plugin": "^1.7.0",
+    "jsx-loader": "^0.13.2",
+    "progress-bar-webpack-plugin": "^1.12.1",
+    "uglifyjs-webpack-plugin": "^2.1.3",
+    "vue-template-compiler": "^2.6.10",
+    "webpack": "^4.35.3",
+    "webpack-cli": "^3.3.5",
+    "webpack-dev-server": "^3.7.2"
+  }
+}

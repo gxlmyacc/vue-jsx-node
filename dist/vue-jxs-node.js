@@ -100,15 +100,15 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
-
-var _vueJsxNode = _interopRequireDefault(__webpack_require__(/*! ./vue-jsx-node */ "./src/vue-jsx-node.js"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
 var _default = {
   install: function install(Vue) {
-    var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-    Vue.component(_vueJsxNode.default.name, _vueJsxNode.default);
+    var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {
+      componentName: ''
+    };
+
+    var VueJsxNode = __webpack_require__(/*! ./vue-jsx-node */ "./src/vue-jsx-node.js")(Vue);
+
+    Vue.component(options.componentName || VueJsxNode.name, VueJsxNode);
   }
 };
 exports.default = _default;
@@ -128,11 +128,7 @@ exports.default = _default;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
-
-var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ "vue"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+exports.default = _default;
 
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
 
@@ -142,164 +138,154 @@ function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.
 
 function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
 
-function camelize(str) {
-  return str.replace(/-(\w)/g, function (_, c) {
-    return c ? c.toUpperCase() : '';
-  });
-}
+function _default(Vue) {
+  function camelize(str) {
+    return str.replace(/-(\w)/g, function (_, c) {
+      return c ? c.toUpperCase() : '';
+    });
+  }
 
-function renderContentStr(h, context, content, _ref) {
-  var classes = _ref.classes,
-      styles = _ref.styles;
-  var domProps = {};
-  classes.push('vue-jsx-node');
-  if (context.props.pre) styles.push({
-    wordBreak: 'break-all',
-    whiteSpace: 'pre'
-  });
-  if (context.props.text) domProps.innerText = content;else domProps.innerHTML = context.props.sanitize && _vue.default.$sanitize ? _vue.default.$sanitize(content) : content;
-  return h(context.props.tag, Object.assign(context.data, {
-    calss: classes,
-    style: styles,
-    domProps: domProps
-  }));
-}
+  function renderContentStr(h, context, content, _ref) {
+    var classes = _ref.classes,
+        styles = _ref.styles;
+    var domProps = {};
+    classes.push('vue-jsx-node');
+    if (context.props.pre) styles.push({
+      wordBreak: 'break-all',
+      whiteSpace: 'pre'
+    });
+    if (context.props.text) domProps.innerText = content;else domProps.innerHTML = context.props.sanitize && Vue.$sanitize ? Vue.$sanitize(content) : content;
+    return h(context.props.tag, Object.assign(context.data, {
+      calss: classes,
+      style: styles,
+      domProps: domProps
+    }));
+  }
 
-function renderContentFn(h, context, content) {
-  var renderThis = context.props.context || context.parent;
+  function renderContentFn(h, context, content) {
+    var renderThis = context.props.context || context.parent;
 
-  var $emit = function $emit(event, payload) {
-    if (!event || !context.listeners) return;
-    var handler = context.listeners[event];
-    if (!handler) return;
+    var $emit = function $emit(event, payload) {
+      if (!event || !context.listeners) return;
+      var handler = context.listeners[event];
+      if (!handler) return;
 
-    for (var _len = arguments.length, args = new Array(_len > 2 ? _len - 2 : 0), _key = 2; _key < _len; _key++) {
-      args[_key - 2] = arguments[_key];
-    }
+      for (var _len = arguments.length, args = new Array(_len > 2 ? _len - 2 : 0), _key = 2; _key < _len; _key++) {
+        args[_key - 2] = arguments[_key];
+      }
 
-    return handler.call.apply(handler, [renderThis, payload].concat(args));
-  };
+      return handler.call.apply(handler, [renderThis, payload].concat(args));
+    };
 
-  var datas = {
-    slots: context.slots,
-    $emit: $emit,
-    $parent: context.parent,
-    $children: context.children,
-    $scopedSlots: context.scopedSlots,
-    $props: context.props,
-    $slots: context.$slots,
-    $listeners: context.listeners
-  }; // console.log('renderContentFn', datas, context);
+    var datas = {
+      slots: context.slots,
+      $emit: $emit,
+      $parent: context.parent,
+      $children: context.children,
+      $scopedSlots: context.scopedSlots,
+      $props: context.props,
+      $slots: context.$slots,
+      $listeners: context.listeners
+    }; // console.log('renderContentFn', datas, context);
 
-  Object.keys(context.data.attrs).forEach(function (key) {
-    return datas[camelize(key)] = context.data.attrs[key];
-  });
-  return content.call(renderThis, h, datas, context.props.context || context);
-}
+    Object.keys(context.data.attrs).forEach(function (key) {
+      return datas[camelize(key)] = context.data.attrs[key];
+    });
+    return content.call(renderThis, h, datas, context.props.context || context);
+  }
 
-function mergeContext(node, context, _ref2) {
-  var _node$data$class, _data$style, _data$directives;
+  function mergeContext(node, context, _ref2) {
+    var _node$data$class, _data$style, _data$directives;
 
-  var classes = _ref2.classes,
-      styles = _ref2.styles;
-  if (!node || !node.data) return node;
-  var data = node.data;
-  if (!data.class) data.class = [];else if (!Array.isArray(data.class)) data.class = [data.class];
+    var classes = _ref2.classes,
+        styles = _ref2.styles;
+    if (!node || !node.data) return node;
+    var data = node.data;
+    if (!data.class) data.class = [];else if (!Array.isArray(data.class)) data.class = [data.class];
 
-  (_node$data$class = node.data.class).push.apply(_node$data$class, _toConsumableArray(classes));
+    (_node$data$class = node.data.class).push.apply(_node$data$class, _toConsumableArray(classes));
 
-  if (!data.style) data.style = [];else if (!Array.isArray(data.style)) data.style = [data.style];
+    if (!data.style) data.style = [];else if (!Array.isArray(data.style)) data.style = [data.style];
 
-  (_data$style = data.style).push.apply(_data$style, _toConsumableArray(styles));
+    (_data$style = data.style).push.apply(_data$style, _toConsumableArray(styles));
 
-  if (!data.attrs) data.attrs = {};
-  Object.assign(data.attrs, context.data.attrs);
-  if (!data.on) data.on = {};
-  Object.keys(context.listeners).forEach(function (key) {
-    if (data.on[key]) return;
-    data.on[key] = context.listeners[key];
-  });
-  if (!data.directives) data.directives = [];
-  if (context.data.directives) (_data$directives = data.directives).push.apply(_data$directives, _toConsumableArray(context.data.directives));
-  Object.keys(context.data).forEach(function (key) {
-    if (['class', 'style', 'attrs', 'on', 'directives'].includes(key)) return;
-    data[key] = context.data[key];
-  }); // console.log('vue-jsx-node', node, context);
+    if (!data.attrs) data.attrs = {};
+    Object.assign(data.attrs, context.data.attrs);
+    if (!data.on) data.on = {};
+    Object.keys(context.listeners).forEach(function (key) {
+      if (data.on[key]) return;
+      data.on[key] = context.listeners[key];
+    });
+    if (!data.directives) data.directives = [];
+    if (context.data.directives) (_data$directives = data.directives).push.apply(_data$directives, _toConsumableArray(context.data.directives));
+    Object.keys(context.data).forEach(function (key) {
+      if (['class', 'style', 'attrs', 'on', 'directives'].includes(key)) return;
+      data[key] = context.data[key];
+    }); // console.log('vue-jsx-node', node, context);
 
-  return node;
-}
+    return node;
+  }
 
-var _default = {
-  name: 'VueJsxNode',
-  functional: true,
-  abstract: true,
-  inheritAttrs: false,
-  props: {
-    content: {
-      type: [String, Object, Array, Function],
-      default: null
+  return {
+    name: 'VueJsxNode',
+    functional: true,
+    abstract: true,
+    inheritAttrs: false,
+    props: {
+      content: {
+        type: [String, Object, Array, Function],
+        default: null
+      },
+      context: {
+        type: Object,
+        default: null
+      },
+      sanitize: {
+        type: Boolean,
+        default: true
+      },
+      text: {
+        type: Boolean,
+        default: false
+      },
+      pre: {
+        type: Boolean,
+        default: false
+      },
+      defaultSlotName: {
+        type: String,
+        default: 'default'
+      },
+      tag: {
+        type: String,
+        default: 'div'
+      }
     },
-    context: {
-      type: Object,
-      default: null
-    },
-    sanitize: {
-      type: Boolean,
-      default: true
-    },
-    text: {
-      type: Boolean,
-      default: false
-    },
-    pre: {
-      type: Boolean,
-      default: false
-    },
-    defaultSlotName: {
-      type: String,
-      default: 'default'
-    },
-    tag: {
-      type: String,
-      default: 'div'
-    }
-  },
-  render: function render(h, context) {
-    var content = context.props.content;
-    var classes = [];
-    if (context.data.class) classes.push(context.data.class);
-    if (context.data.staticClass) classes.push(context.data.staticClass);
-    var styles = [];
-    if (context.data.style) styles.push(context.data.style);
-    if (context.data.staticStyle) styles.push(context.data.staticStyle);
+    render: function render(h, context) {
+      var content = context.props.content;
+      var classes = [];
+      if (context.data.class) classes.push(context.data.class);
+      if (context.data.staticClass) classes.push(context.data.staticClass);
+      var styles = [];
+      if (context.data.style) styles.push(context.data.style);
+      if (context.data.staticStyle) styles.push(context.data.staticStyle);
 
-    if (content && typeof content === 'string') {
-      return renderContentStr(h, context, content, {
+      if (content && typeof content === 'string') {
+        return renderContentStr(h, context, content, {
+          classes: classes,
+          styles: styles
+        });
+      }
+
+      var node;
+      if (typeof content === 'function') node = renderContentFn(h, context, content);else node = content || context.slots()[context.props.defaultSlotName] || null;
+      return mergeContext(node, context, {
         classes: classes,
         styles: styles
       });
     }
-
-    var node;
-    if (typeof content === 'function') node = renderContentFn(h, context, content);else node = content || context.slots()[context.props.defaultSlotName] || null;
-    return mergeContext(node, context, {
-      classes: classes,
-      styles: styles
-    });
-  }
-};
-exports.default = _default;
-
-/***/ }),
-
-/***/ "vue":
-/*!**********************!*\
-  !*** external "vue" ***!
-  \**********************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = vue;
+  };
+}
 
 /***/ })
 

@@ -1,7 +1,6 @@
-import VueJsxNode from './vue-jsx-node';
-
 export default {
-  install(Vue, options = {}) {
-    Vue.component(VueJsxNode.name, VueJsxNode);
+  install(Vue, options = { componentName: '' }) {
+    const VueJsxNode = require('./vue-jsx-node')(Vue);
+    Vue.component(options.componentName || VueJsxNode.name, VueJsxNode);
   }
 };

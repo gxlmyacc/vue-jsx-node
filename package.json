@@ -3,7 +3,10 @@
   "version": "1.0.6",
   "description": "vue-jsx-node",
   "keywords": [
-    "vue-jsx-node"
+    "vue-jsx-node",
+    "vue",
+    "jsx",
+    "render function"
   ],
   "sideEffects": false,
   "main": "dist/vue-jxs-node.min.js",

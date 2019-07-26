@@ -1,4 +1,4 @@
-var VueJsxNode =
+module.exports =
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -97,7 +97,11 @@ var VueJsxNode =
 "use strict";
 
 
-module.exports = {
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _default = {
   install: function install(Vue) {
     var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {
       componentName: ''
@@ -108,6 +112,7 @@ module.exports = {
     Vue.component(options.componentName || VueJsxNode.name, VueJsxNode);
   }
 };
+exports.default = _default;
 
 /***/ }),
 

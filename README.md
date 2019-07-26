@@ -31,7 +31,10 @@ then use it as a vue component:
     <!-- render a html string  -->
     <vue-jsx-node :content="aHtmlStr" pre />
     <!-- render a jsx node by render function  -->
-    <vue-jsx-node class="some-class" :content="aRenderFn" :some-str.sync="someStr", @click="handleClick">
+    <vue-jsx-node class="some-class" 
+      :content="aRenderFn" 
+      :some-str="someStr", 
+      @click="handleClick">
       default string
     </vue-jsx-node>
   </div>

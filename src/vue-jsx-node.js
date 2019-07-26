@@ -43,7 +43,7 @@ module.exports = function (Vue) {
   }
 
   function mergeContext(node, context, { classes, styles }) {
-    if (!node || !node.data) return node;
+    if (!context.props.inheritAttrs || !node || !node.data) return node;
     const data = node.data;
     if (!data.class) data.class = [];
     else if (!Array.isArray(data.class)) data.class = [data.class];
@@ -69,7 +69,6 @@ module.exports = function (Vue) {
       if (['class', 'style', 'attrs', 'on', 'directives'].includes(key)) return;
       data[key] = context.data[key];
     });
-
     // console.log('vue-jsx-node', node, context);
     return node;
   }
@@ -87,6 +86,10 @@ module.exports = function (Vue) {
       context: {
         type: Object,
         default: null,
+      },
+      inheritAttrs: {
+        type: Boolean,
+        default: true,
       },
       sanitize: {
         type: Boolean,
@@ -124,7 +127,8 @@ module.exports = function (Vue) {
 
       let node;
       if (typeof content === 'function') node = renderContentFn(h, context, content);
-      else node = content || context.slots()[context.props.defaultSlotName] || null;
+      else node = content;
+      if (!node) node = context.slots()[context.props.defaultSlotName] || null;
 
       return mergeContext(node, context, { classes, styles });
     },

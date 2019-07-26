@@ -3,7 +3,7 @@
 [![NPM version](https://img.shields.io/npm/v/vue-jsx-node.svg?style=flat)](https://npmjs.com/package/vue-jsx-node)
 [![NPM downloads](https://img.shields.io/npm/dm/vue-jsx-node.svg?style=flat)](https://npmjs.com/package/vue-jsx-node)
 
-this is a vue component that can render html string or jsx by vnode or render function
+This is a vue component that can render html string or jsx by vnode or render function
 
 
 ## install
@@ -15,7 +15,7 @@ npm install vue-jsx-node --save
 ```
 
 ## usage
-to use `vue-jsx-node`, first, you need regisiter it to Vue,
+To use `vue-jsx-node`, first, you need regisiter it to Vue,
 ```js
 import Vue from 'vue';
 import VueJsxNode from 'vue-jsx-node';
@@ -27,7 +27,9 @@ then use it as a vue component:
 <template>
   <div class="container">
     <!-- render a jsx node -->
-    <vue-jsx-node :content="aJsxNode" />
+    <vue-jsx-node :content="aJsxNode">
+      this text will show when aJsxNode is falsy
+    </vue-jsx-node>
     <!-- render a html string  -->
     <vue-jsx-node :content="aHtmlStr" pre />
     <!-- render a jsx node by render function  -->
@@ -61,9 +63,6 @@ export default {
         <input v-model={this.inputStr} />
       </div>);
     },
-    aHtmlStr() {
-      return 
-    }
   },
   methods: {
     /**

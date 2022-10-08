@@ -1,4 +1,4 @@
-# vue-jxs-node
+# vue-jsx-node
 
 [![NPM version](https://img.shields.io/npm/v/vue-jsx-node.svg?style=flat)](https://npmjs.com/package/vue-jsx-node)
 [![NPM downloads](https://img.shields.io/npm/dm/vue-jsx-node.svg?style=flat)](https://npmjs.com/package/vue-jsx-node)

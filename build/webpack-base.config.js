@@ -35,7 +35,7 @@ module.exports = function (options) {
     entry: path.resolve(srcDir, 'index.js'),
     output: {
       path: distDir,
-      filename: options.dev ? 'vue-jxs-node.js' : 'vue-jxs-node.min.js',
+      filename: options.dev ? 'vue-jsx-node.js' : 'vue-jsx-node.min.js',
       publicPath: './',
       pathinfo: options.dev,
       library: 'VueJsxNode',

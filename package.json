@@ -1,6 +1,6 @@
 {
   "name": "vue-jsx-node",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "vue-jsx-node",
   "keywords": [
     "vue-jsx-node",
@@ -9,7 +9,7 @@
     "render function"
   ],
   "sideEffects": false,
-  "main": "dist/vue-jxs-node.min.js",
+  "main": "dist/vue-jsx-node.min.js",
   "engines": {
     "node": "> 6.9.1"
   },
